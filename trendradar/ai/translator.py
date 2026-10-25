@@ -50,7 +50,7 @@ class AITranslator:
 
         # 翻译配置
         self.enabled = translation_config.get("ENABLED", False)
-        self.target_language = translation_config.get("LANGUAGE", "English")
+        self.target_language = translation_config.get("LANGUAGE", "Vietnamese")
         self.scope = translation_config.get("SCOPE", {"HOTLIST": True, "RSS": True, "STANDALONE": True})
 
         # 创建 AI 客户端（基于 LiteLLM）

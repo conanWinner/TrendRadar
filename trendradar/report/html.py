@@ -54,11 +54,11 @@ def render_html_content(
 
     html = """
     <!DOCTYPE html>
-    <html>
+    <html lang='vi'>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>热点新闻分析</title>
+        <title>Phân tích tin nổi bật</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
             * { box-sizing: border-box; }
@@ -467,7 +467,7 @@ def render_html_content(
                 border-top: 2px solid #e5e7eb;
             }
 
-            /* 热榜统计区样式 */
+            /* Tin nổi bật统计区样式 */
             .hotlist-section {
                 /* 默认无边框，由 section-divider 动态添加 */
             }
@@ -639,7 +639,7 @@ def render_html_content(
                 }
             }
 
-            /* RSS 订阅内容样式 */
+            /* Nội dung kênh RSS样式 */
             .rss-section {
                 margin-top: 32px;
                 padding-top: 24px;
@@ -751,7 +751,7 @@ def render_html_content(
                 overflow: hidden;
             }
 
-            /* 独立展示区样式 - 复用热点词汇统计区样式 */
+            /* Mục hiển thị riêng样式 - 复用Thống kê từ khóa nổi bật区样式 */
             .standalone-section {
                 margin-top: 32px;
                 padding-top: 24px;
@@ -804,7 +804,7 @@ def render_html_content(
                 font-weight: 500;
             }
 
-            /* AI 分析区块样式 */
+            /* Phân tích AI区块样式 */
             .ai-section {
                 margin-top: 32px;
                 padding: 24px;
@@ -888,7 +888,7 @@ def render_html_content(
                 font-size: 14px;
             }
 
-            /* ===== 浏览器增强样式（渐进增强，邮件客户端无影响） ===== */
+            /* ===== 浏览器增强样式(渐进增强，邮件客户端无影响) ===== */
 
             /* 宽屏模式 - 基础 */
             body.wide-mode .container { max-width: 1200px; }
@@ -903,7 +903,7 @@ def render_html_content(
             }
             body.wide-mode .feed-group { margin-bottom: 0; }
 
-            /* 宽屏模式 - AI 分析区两列网格 */
+            /* 宽屏模式 - Phân tích AI区两列网格 */
             body.wide-mode .ai-section .ai-blocks-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -911,7 +911,7 @@ def render_html_content(
             }
             body.wide-mode .ai-block { margin-bottom: 0; }
 
-            /* 宽屏模式 - 新增热点多列 */
+            /* 宽屏模式 - Tin nổi bật mới多列 */
             body.wide-mode .new-section .new-sources-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -919,7 +919,7 @@ def render_html_content(
             }
             body.wide-mode .new-source-group { margin-bottom: 0; }
 
-            /* 宽屏模式 - 独立展示区多列 */
+            /* 宽屏模式 - Mục hiển thị riêng多列 */
             body.wide-mode .standalone-section .standalone-groups-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -1025,7 +1025,7 @@ def render_html_content(
             }
             .tab-btn.active .tab-count { background: rgba(255,255,255,0.3); }
 
-            /* 搜索栏 */
+            /* Tìm kiếm栏 */
             .search-bar { display: none; padding: 0 0 16px 0; }
             .search-input {
                 width: 100%;
@@ -1169,7 +1169,7 @@ def render_html_content(
                 transform: translateY(-1px);
             }
 
-            /* ===== 暗色模式 ===== */
+            /* ===== Giao diện tối ===== */
             body.dark-mode {
                 background: #0f172a;
                 color: #e2e8f0;
@@ -1270,7 +1270,7 @@ def render_html_content(
             body.dark-mode .tab-bar::-webkit-scrollbar-track { background: #1e293b; }
             body.dark-mode .tab-bar::-webkit-scrollbar-thumb { background: #475569; }
 
-            /* 搜索框 */
+            /* Tìm kiếm框 */
             body.dark-mode .search-input {
                 background: #1e293b;
                 border-color: #334155;
@@ -1288,7 +1288,7 @@ def render_html_content(
                 border-left-color: #059669;
             }
 
-            /* AI 分析区 */
+            /* Phân tích AI区 */
             body.dark-mode .ai-section {
                 background: linear-gradient(135deg, #1e1b4b 0%, #1e293b 100%);
                 border-color: #334155;
@@ -1353,7 +1353,7 @@ def render_html_content(
                 color: #c4b5fd;
             }
 
-            /* 暗色模式切换按钮 */
+            /* Giao diện tối切换按钮 */
             .toggle-dark-btn {
                 background: rgba(255, 255, 255, 0.2);
                 border: 1px solid rgba(255, 255, 255, 0.3);
@@ -1417,19 +1417,19 @@ def render_html_content(
             <div class="header">
                 <div class="header-watermark">TrendRadar</div>
                 <div class="save-buttons">
-                    <button class="toggle-wide-btn" onclick="toggleWideMode()" title="切换宽屏/窄屏">⛶</button>
-                    <button class="toggle-dark-btn" onclick="toggleDarkMode()" title="切换暗色/亮色">☽</button>
+                    <button class="toggle-wide-btn" onclick="toggleWideMode()" title="Đổi giao diện rộng/hẹp">⛶</button>
+                    <button class="toggle-dark-btn" onclick="toggleDarkMode()" title="Đổi giao diện tối/sáng">☽</button>
                     <div class="save-btn-group">
-                        <button class="save-btn" onclick="saveAsImage(event)">导出</button>
+                        <button class="save-btn" onclick="saveAsImage(event)">Xuất</button>
                         <button class="save-dropdown-trigger">▾</button>
                         <div class="save-dropdown-menu">
-                            <button class="save-dropdown-item" onclick="saveAsImage(event)"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><circle cx="8" cy="7.5" r="2.5"/><path d="M12 4h.01"/></svg>整页截图</button>
-                            <button class="save-dropdown-item" onclick="saveAsMultipleImages(event)"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="10" height="10" rx="1.5"/><path d="M5 4V2.5A1.5 1.5 0 016.5 1h7A1.5 1.5 0 0115 2.5v7a1.5 1.5 0 01-1.5 1.5H12"/></svg>分段截图</button>
+                            <button class="save-dropdown-item" onclick="saveAsImage(event)"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><circle cx="8" cy="7.5" r="2.5"/><path d="M12 4h.01"/></svg>Chụp toàn trang</button>
+                            <button class="save-dropdown-item" onclick="saveAsMultipleImages(event)"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="10" height="10" rx="1.5"/><path d="M5 4V2.5A1.5 1.5 0 016.5 1h7A1.5 1.5 0 0115 2.5v7a1.5 1.5 0 01-1.5 1.5H12"/></svg>Chụp từng phần</button>
                             <button class="save-dropdown-item" onclick="saveAsMarkdown()"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 2h11A1.5 1.5 0 0115 3.5v9a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 011 12.5v-9A1.5 1.5 0 012.5 2z"/><path d="M4 11V5l2.5 3L9 5v6"/><path d="M11.5 8v3m0 0l-1.5-2m1.5 2l1.5-2"/></svg>Markdown</button>
                         </div>
                     </div>
                 </div>
-                <div class="header-title">热点新闻分析</div>
+                <div class="header-title">Phân tích tin nổi bật</div>
                 <div class="header-info">"""
 
     # 使用提供的时间函数或默认 datetime.now
@@ -1440,11 +1440,11 @@ def render_html_content(
 
     # 处理报告类型显示
     if mode == "current":
-        mode_display = "当前榜单"
+        mode_display = "Bảng tin hiện tại"
     elif mode == "incremental":
-        mode_display = "增量分析"
+        mode_display = "Phân tích tin mới"
     else:
-        mode_display = "全天汇总"
+        mode_display = "Tổng hợp cả ngày"
 
     # 计算各项数据
     hot_news_count = sum(len(stat["titles"]) for stat in report_data["stats"])
@@ -1464,21 +1464,21 @@ def render_html_content(
     # 1. 报告类型
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">报告类型</span>
+                        <span class="info-label">Loại báo cáo</span>
                         <span class="info-value">{mode_display}</span>
                     </div>"""
 
     # 2. 生成时间
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">生成时间</span>
+                        <span class="info-label">Thời gian tạo</span>
                         <span class="info-value">{now.strftime("%m-%d %H:%M")}</span>
                     </div>"""
 
     # 3. 热榜命中
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">热榜命中</span>
+                        <span class="info-label">Tin nổi bật phù hợp</span>
                         <span class="info-value">{hot_news_count} / {hotlist_total}</span>
                     </div>"""
 
@@ -1486,10 +1486,10 @@ def render_html_content(
     if rss_source_total > 0:
         rss_value = f"{rss_matched} / {rss_total}"
     else:
-        rss_value = "未启用"
+        rss_value = "Chưa bật"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">RSS 命中</span>
+                        <span class="info-label">Tin RSS phù hợp</span>
                         <span class="info-value">{rss_value}</span>
                     </div>"""
 
@@ -1500,7 +1500,7 @@ def render_html_content(
         platform_value = "--"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">热榜平台</span>
+                        <span class="info-label">Nền tảng tin nổi bật</span>
                         <span class="info-value">{platform_value}</span>
                     </div>"""
 
@@ -1511,7 +1511,7 @@ def render_html_content(
         rss_source_value = "--"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">RSS 源</span>
+                        <span class="info-label">Nguồn RSS</span>
                         <span class="info-value">{rss_source_value}</span>
                     </div>"""
 
@@ -1521,7 +1521,7 @@ def render_html_content(
     new_value = f"{new_count} + {rss_new_count}" if total_new > 0 else "0"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">新增热点</span>
+                        <span class="info-label">Tin nổi bật mới</span>
                         <span class="info-value">{new_value}</span>
                     </div>"""
 
@@ -1541,14 +1541,14 @@ def render_html_content(
         ai_value = " + ".join(ai_parts) if sum(int(p) for p in ai_parts) > 0 else "0"
     elif ai_analysis:
         if getattr(ai_analysis, "skipped", False):
-            ai_value = "已跳过"
+            ai_value = "Đã bỏ qua"
         else:
-            ai_value = "待配置"
+            ai_value = "Chờ cấu hình"
     else:
-        ai_value = "未启用"
+        ai_value = "Chưa bật"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">AI 分析</span>
+                        <span class="info-label">Phân tích AI</span>
                         <span class="info-value">{ai_value}</span>
                     </div>"""
 
@@ -1558,14 +1558,14 @@ def render_html_content(
 
             <div class="content">
                 <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="搜索新闻标题..." oninput="handleSearch(this.value)">
+                    <input type="text" class="search-input" placeholder="Tìm tiêu đề tin tức..." oninput="handleSearch(this.value)">
                 </div>"""
 
     # 处理失败ID错误信息
     if report_data["failed_ids"]:
         html += """
                 <div class="error-section">
-                    <div class="error-title">⚠️ 请求失败的平台</div>
+                    <div class="error-title">⚠️ Nền tảng không truy cập được</div>
                     <ul class="error-list">"""
         for id_value in report_data["failed_ids"]:
             html += f'<li class="error-item">{html_escape(id_value)}</li>'
@@ -1582,7 +1582,7 @@ def render_html_content(
         # 生成 Tab 栏 HTML
         total_news_count = sum(s["count"] for s in report_data["stats"])
         tab_bar_html = '<div class="tab-bar-wrapper"><div class="tab-bar">'
-        tab_bar_html += f'<button class="tab-btn" data-tab-index="all">全部<span class="tab-count">{total_news_count}</span></button>'
+        tab_bar_html += f'<button class="tab-btn" data-tab-index="all">Tất cả<span class="tab-count">{total_news_count}</span></button>'
         for tab_i, tab_stat in enumerate(report_data["stats"]):
             escaped_tab_word = html_escape(tab_stat["word"])
             tab_count = tab_stat["count"]
@@ -1607,7 +1607,7 @@ def render_html_content(
                     <div class="word-header">
                         <div class="word-info">
                             <div class="word-name">{escaped_word}</div>
-                            <div class="word-count {count_class}">{count} 条</div>
+                            <div class="word-count {count_class}">{count}  tin</div>
                         </div>
                         <div class="word-index"><span class="collapse-icon">▼</span>{i}/{total_count}</div>
                     </div>"""
@@ -1680,7 +1680,7 @@ def render_html_content(
                 # 处理出现次数
                 count_info = title_data.get("count", 1)
                 if count_info > 1:
-                    stats_html += f'<span class="count-info">{count_info}次</span>'
+                    stats_html += f'<span class="count-info">{count_info} lần</span>'
 
                 stats_html += """
                             </div>
@@ -1715,7 +1715,7 @@ def render_html_content(
     if show_new_section and report_data["new_titles"]:
         new_titles_html += f"""
                 <div class="new-section">
-                    <div class="new-section-title">本次新增热点 (共 {report_data['total_new_count']} 条)</div>
+                    <div class="new-section-title">Tin nổi bật mới trong lần này (tổng {report_data['total_new_count']} tin)</div>
                     <div class="new-sources-grid">"""
 
         for source_data in report_data["new_titles"]:
@@ -1724,7 +1724,7 @@ def render_html_content(
 
             new_titles_html += f"""
                     <div class="new-source-group">
-                        <div class="new-source-title">{escaped_source} · {titles_count}条</div>"""
+                        <div class="new-source-title">{escaped_source} · {titles_count} tin</div>"""
 
             # 为新增新闻也添加序号
             for idx, title_data in enumerate(source_data["titles"], 1):
@@ -1776,7 +1776,7 @@ def render_html_content(
                 </div>"""
 
     # 生成 RSS 统计内容
-    def render_rss_stats_html(stats: List[Dict], title: str = "RSS 订阅更新") -> str:
+    def render_rss_stats_html(stats: List[Dict], title: str = "Cập nhật kênh RSS") -> str:
         """渲染 RSS 统计区块 HTML
 
         Args:
@@ -1813,7 +1813,7 @@ def render_html_content(
                 <div class="rss-section">
                     <div class="rss-section-header">
                         <div class="rss-section-title">{title}</div>
-                        <div class="rss-section-count">{total_count} 条</div>
+                        <div class="rss-section-count">{total_count}  tin</div>
                     </div>
                     <div class="rss-feeds-grid">"""
 
@@ -1830,7 +1830,7 @@ def render_html_content(
                     <div class="feed-group">
                         <div class="feed-header">
                             <div class="feed-name">{html_escape(keyword)}</div>
-                            <div class="feed-count">{keyword_count} 条</div>
+                            <div class="feed-count">{keyword_count}  tin</div>
                         </div>"""
 
             for title_data in titles:
@@ -1950,8 +1950,8 @@ def render_html_content(
         standalone_html = f"""
                 <div class="standalone-section">
                     <div class="standalone-section-header">
-                        <div class="standalone-section-title">独立展示区</div>
-                        <div class="standalone-section-count">{total_count} 条</div>
+                        <div class="standalone-section-title">Mục hiển thị riêng</div>
+                        <div class="standalone-section-count">{total_count}  tin</div>
                     </div>"""
 
         # 生成 tab 栏（2+ 分组时）
@@ -1963,7 +1963,7 @@ def render_html_content(
                 standalone_html += f"""
                         <button class="tab-btn{active}" data-standalone-tab="{idx}">{html_escape(g["name"])}<span class="tab-count">{g["count"]}</span></button>"""
             standalone_html += f"""
-                        <button class="tab-btn" data-standalone-tab="all">全部<span class="tab-count">{total_count}</span></button>
+                        <button class="tab-btn" data-standalone-tab="all">Tất cả<span class="tab-count">{total_count}</span></button>
                     </div>"""
 
         standalone_html += """
@@ -1981,7 +1981,7 @@ def render_html_content(
                     <div class="standalone-group" data-standalone-tab="{group_idx}">
                         <div class="standalone-header">
                             <div class="standalone-name">{html_escape(platform_name)}</div>
-                            <div class="standalone-count">{len(items)} 条</div>
+                            <div class="standalone-count">{len(items)}  tin</div>
                         </div>"""
 
             # 渲染每个条目（复用 news-item 结构）
@@ -2039,7 +2039,7 @@ def render_html_content(
 
                 # 出现次数（复用 count-info 样式）
                 if count > 1:
-                    standalone_html += f'<span class="count-info">{count}次</span>'
+                    standalone_html += f'<span class="count-info">{count} lần</span>'
 
                 standalone_html += """
                                 </div>
@@ -2073,7 +2073,7 @@ def render_html_content(
                     <div class="standalone-group" data-standalone-tab="{group_idx}">
                         <div class="standalone-header">
                             <div class="standalone-name">{html_escape(feed_name)}</div>
-                            <div class="standalone-count">{len(items)} 条</div>
+                            <div class="standalone-count">{len(items)}  tin</div>
                         </div>"""
 
             for j, item in enumerate(items, 1):
@@ -2132,8 +2132,8 @@ def render_html_content(
         return standalone_html
 
     # 生成 RSS 统计和新增 HTML
-    rss_stats_html = render_rss_stats_html(rss_items, "RSS 订阅更新") if rss_items else ""
-    rss_new_html = render_rss_stats_html(rss_new_items, "RSS 新增更新") if rss_new_items else ""
+    rss_stats_html = render_rss_stats_html(rss_items, "Cập nhật kênh RSS") if rss_items else ""
+    rss_new_html = render_rss_stats_html(rss_new_items, "Tin RSS mới") if rss_new_items else ""
 
     # 生成独立展示区 HTML
     standalone_html = render_standalone_html(standalone_data)
@@ -2188,16 +2188,16 @@ def render_html_content(
 
             <div class="footer">
                 <div class="footer-content">
-                    由 <span class="project-name">TrendRadar</span> 生成 ·
+                    Được tạo bởi <span class="project-name">TrendRadar</span> ·
                     <a href="https://github.com/sansan0/TrendRadar" target="_blank" class="footer-link">
-                        GitHub 开源项目
+                        Dự án mã nguồn mở trên GitHub
                     </a>"""
 
     if update_info:
         html += f"""
                     <br>
                     <span style="color: #ea580c; font-weight: 500;">
-                        发现新版本 {update_info['remote_version']}，当前版本 {update_info['current_version']}
+                        Có phiên bản mới {update_info['remote_version']}，phiên bản hiện tại {update_info['current_version']}
                     </span>"""
 
     html += """
@@ -2206,16 +2206,16 @@ def render_html_content(
         </div>
 
         <div class="fab-bar">
-            <button class="fab-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">↑</button>
+            <button class="fab-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Về đầu trang">↑</button>
             <button class="fab-btn fab-help">
                 <span>?</span>
                 <div class="fab-tooltip">
-                    <div class="tip-row"><span>切换宽屏</span><span class="tip-key">W</span></div>
-                    <div class="tip-row"><span>暗色模式</span><span class="tip-key">D</span></div>
-                    <div class="tip-row"><span>搜索</span><span class="tip-key">/</span></div>
-                    <div class="tip-row"><span>上一个 Tab</span><span class="tip-key">←</span></div>
-                    <div class="tip-row"><span>下一个 Tab</span><span class="tip-key">→</span></div>
-                    <div class="tip-row"><span>序号可复制</span><span class="tip-key">点击</span></div>
+                    <div class="tip-row"><span>Đổi giao diện rộng</span><span class="tip-key">W</span></div>
+                    <div class="tip-row"><span>Giao diện tối</span><span class="tip-key">D</span></div>
+                    <div class="tip-row"><span>Tìm kiếm</span><span class="tip-key">/</span></div>
+                    <div class="tip-row"><span>Thẻ trước</span><span class="tip-key">←</span></div>
+                    <div class="tip-row"><span>Thẻ sau</span><span class="tip-key">→</span></div>
+                    <div class="tip-row"><span>Nhấp số để sao chép</span><span class="tip-key">Nhấp</span></div>
                 </div>
             </button>
         </div>
@@ -2435,7 +2435,7 @@ def render_html_content(
                 }
             }
 
-            // 独立展示区 Tab 切换
+            // Mục hiển thị riêng Tab 切换
             function initStandaloneTabs() {
                 var tabBar = document.querySelector('.standalone-tab-bar');
                 if (!tabBar) return;
@@ -2550,14 +2550,14 @@ def render_html_content(
                 var screenshotState = null;
 
                 try {
-                    button.textContent = '生成中...';
+                    button.textContent = 'Đang tạo...';
                     button.disabled = true;
                     window.scrollTo(0, 0);
 
                     // 等待页面稳定
                     await new Promise(resolve => setTimeout(resolve, 200));
 
-                    // 截图前准备：切回窄屏布局
+                    // 截图前准备: 切回窄屏布局
                     screenshotState = prepareForScreenshot();
 
                     // 截图前隐藏按钮
@@ -2593,7 +2593,7 @@ def render_html_content(
 
                     const link = document.createElement('a');
                     const now = new Date();
-                    const filename = `TrendRadar_热点新闻分析_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}.png`;
+                    const filename = `TrendRadar_Phân tích tin nổi bật_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}.png`;
 
                     link.download = filename;
                     link.href = canvas.toDataURL('image/png', 1.0);
@@ -2603,7 +2603,7 @@ def render_html_content(
                     link.click();
                     document.body.removeChild(link);
 
-                    button.textContent = '保存成功!';
+                    button.textContent = 'Đã lưu thành công!';
                     setTimeout(() => {
                         button.innerHTML = originalHTML;
                         button.disabled = false;
@@ -2613,7 +2613,7 @@ def render_html_content(
                     const buttons = document.querySelector('.save-buttons');
                     buttons.style.visibility = 'visible';
                     if (screenshotState) { restoreAfterScreenshot(screenshotState); }
-                    button.textContent = '保存失败';
+                    button.textContent = 'Lưu thất bại';
                     setTimeout(() => {
                         button.innerHTML = originalHTML;
                         button.disabled = false;
@@ -2631,7 +2631,7 @@ def render_html_content(
 
                 try {
                     screenshotState2 = prepareForScreenshot();
-                    button.textContent = '分析中...';
+                    button.textContent = 'Đang phân tích...';
                     button.disabled = true;
 
                     // 获取所有可能的分割元素
@@ -2655,7 +2655,7 @@ def render_html_content(
                         height: header.offsetHeight
                     });
 
-                    // 添加错误信息（如果存在）
+                    // 添加错误信息(如果存在)
                     if (errorSection) {
                         const rect = errorSection.getBoundingClientRect();
                         elements.push({
@@ -2757,7 +2757,7 @@ def render_html_content(
                         segments.push(currentSegment);
                     }
 
-                    button.textContent = `生成中 (0/${segments.length})...`;
+                    button.textContent = `Đang tạo (0/${segments.length})...`;
 
                     // 隐藏保存按钮
                     const buttons = document.querySelector('.save-buttons');
@@ -2767,7 +2767,7 @@ def render_html_content(
                     const images = [];
                     for (let i = 0; i < segments.length; i++) {
                         const segment = segments[i];
-                        button.textContent = `生成中 (${i + 1}/${segments.length})...`;
+                        button.textContent = `Đang tạo (${i + 1}/${segments.length})...`;
 
                         // 创建临时容器用于截图
                         const tempContainer = document.createElement('div');
@@ -2822,7 +2822,7 @@ def render_html_content(
 
                     // 下载所有图片
                     const now = new Date();
-                    const baseFilename = `TrendRadar_热点新闻分析_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+                    const baseFilename = `TrendRadar_Phân tích tin nổi bật_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
 
                     for (let i = 0; i < images.length; i++) {
                         const link = document.createElement('a');
@@ -2836,7 +2836,7 @@ def render_html_content(
                         await new Promise(resolve => setTimeout(resolve, 100));
                     }
 
-                    button.textContent = `已保存 ${segments.length} 张图片!`;
+                    button.textContent = `Đã lưu ${segments.length} ảnh!`;
                     restoreAfterScreenshot(screenshotState2);
                     setTimeout(() => {
                         button.innerHTML = originalHTML;
@@ -2844,11 +2844,11 @@ def render_html_content(
                     }, 2000);
 
                 } catch (error) {
-                    console.error('分段保存失败:', error);
+                    console.error('Lưu từng phần thất bại:', error);
                     const buttons = document.querySelector('.save-buttons');
                     buttons.style.visibility = 'visible';
                     if (screenshotState2) { restoreAfterScreenshot(screenshotState2); }
-                    button.textContent = '保存失败';
+                    button.textContent = 'Lưu thất bại';
                     setTimeout(() => {
                         button.innerHTML = originalHTML;
                         button.disabled = false;
@@ -2919,7 +2919,7 @@ def render_html_content(
                 // 热点关键词区
                 var wordGroups = document.querySelectorAll('.hotlist-section > .word-group');
                 if (wordGroups.length) {
-                    lines.push('## 热点新闻');
+                    lines.push('## Tin nổi bật');
                     lines.push('');
                     wordGroups.forEach(function(group) {
                         var wordName = group.querySelector('.word-name');
@@ -2937,11 +2937,11 @@ def render_html_content(
                     });
                 }
 
-                // 新增热点区
+                // Tin nổi bật mới区
                 var newSection = document.querySelector('.new-section');
                 if (newSection) {
                     var newTitle = newSection.querySelector('.new-section-title');
-                    lines.push('## ' + (newTitle ? newTitle.textContent.trim() : '本次新增热点'));
+                    lines.push('## ' + (newTitle ? newTitle.textContent.trim() : 'Tin nổi bật mới trong lần này'));
                     lines.push('');
                     var sourceGroups = newSection.querySelectorAll('.new-source-group');
                     sourceGroups.forEach(function(sg) {
@@ -2959,11 +2959,11 @@ def render_html_content(
                     });
                 }
 
-                // RSS 订阅更新区
+                // Cập nhật kênh RSS区
                 var rssSection = document.querySelector('.rss-section');
                 if (rssSection) {
                     var rssSectionTitle = rssSection.querySelector('.rss-section-title');
-                    lines.push('## ' + (rssSectionTitle ? rssSectionTitle.textContent.trim() : 'RSS 订阅更新'));
+                    lines.push('## ' + (rssSectionTitle ? rssSectionTitle.textContent.trim() : 'Cập nhật kênh RSS'));
                     lines.push('');
                     var feedGroups = rssSection.querySelectorAll('.feed-group');
                     feedGroups.forEach(function(group) {
@@ -2994,21 +2994,21 @@ def render_html_content(
                     });
                 }
 
-                // AI 热点分析区
+                // Phân tích tin nổi bật bằng AI区
                 var aiSection = document.querySelector('.ai-section');
                 if (aiSection) {
                     var aiError = aiSection.querySelector('.ai-error') || aiSection.querySelector('.ai-warning');
                     var aiInfo = aiSection.querySelector('.ai-info');
                     if (aiError) {
-                        lines.push('## AI 分析');
+                        lines.push('## Phân tích AI');
                         lines.push('');
                         lines.push('> ' + aiError.textContent.trim());
                         lines.push('');
                     } else if (aiInfo) {
-                        // 跳过 info 提示（如"跳过"）
+                        // 跳过 info 提示(如"跳过")
                     } else {
                         var aiTitle = aiSection.querySelector('.ai-section-title');
-                        lines.push('## ' + (aiTitle ? aiTitle.textContent.trim() : 'AI 热点分析'));
+                        lines.push('## ' + (aiTitle ? aiTitle.textContent.trim() : 'Phân tích tin nổi bật bằng AI'));
                         lines.push('');
                         var aiBlocks = aiSection.querySelectorAll('.ai-block');
                         aiBlocks.forEach(function(block) {
@@ -3026,11 +3026,11 @@ def render_html_content(
                     }
                 }
 
-                // 独立展示区（热榜平台 + RSS）
+                // Mục hiển thị riêng(Nền tảng tin nổi bật + RSS)
                 var standaloneSection = document.querySelector('.standalone-section');
                 if (standaloneSection) {
                     var standaloneTitle = standaloneSection.querySelector('.standalone-section-title');
-                    lines.push('## ' + (standaloneTitle ? standaloneTitle.textContent.trim() : '独立展示区'));
+                    lines.push('## ' + (standaloneTitle ? standaloneTitle.textContent.trim() : 'Mục hiển thị riêng'));
                     lines.push('');
                     var groups = standaloneSection.querySelectorAll('.standalone-group');
                     groups.forEach(function(group) {
@@ -3054,7 +3054,7 @@ def render_html_content(
                 if (errorSection) {
                     var errorItems = errorSection.querySelectorAll('.error-item');
                     if (errorItems.length) {
-                        lines.push('## 抓取异常');
+                        lines.push('## Lỗi thu thập dữ liệu');
                         lines.push('');
                         errorItems.forEach(function(item) {
                             lines.push('- ' + item.textContent.trim());
@@ -3092,7 +3092,7 @@ def render_html_content(
                     if (btn) btn.textContent = '⊡';
                 }
 
-                // 暗色模式恢复
+                // Giao diện tối恢复
                 var savedDark = null;
                 try { savedDark = localStorage.getItem('trendradar-dark-mode'); } catch(e) {}
                 if (savedDark === '1') {
@@ -3101,7 +3101,7 @@ def render_html_content(
                     if (darkBtn) darkBtn.textContent = '☀';
                 }
 
-                // 启用搜索栏
+                // 启用Tìm kiếm栏
                 var searchBar = document.querySelector('.search-bar');
                 if (searchBar) searchBar.style.display = 'block';
 
@@ -3148,7 +3148,7 @@ def render_html_content(
                     });
                 }
 
-                // 一键复制：hover 时数字变复制图标
+                // 一键复制: hover 时数字变复制图标
                 var copySvg = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M5 11H3.5A1.5 1.5 0 012 9.5v-7A1.5 1.5 0 013.5 1h7A1.5 1.5 0 0112 2.5V5"/></svg>';
                 var checkSvg = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#22c55e" stroke-width="2"><path d="M3 8.5l3.5 3.5 7-7"/></svg>';
                 document.querySelectorAll('.news-item .news-number').forEach(function(numEl) {
@@ -3157,7 +3157,7 @@ def render_html_content(
                     if (!titleEl) return;
                     var numText = numEl.textContent.trim();
                     numEl.innerHTML = '<span class="num-text">' + numText + '</span><span class="copy-icon">' + copySvg + '</span>';
-                    numEl.title = '点击复制标题和链接';
+                    numEl.title = 'Nhấp để sao chép tiêu đề và liên kết';
                     numEl.addEventListener('click', function(e) {
                         e.stopPropagation();
                         var text = titleEl.textContent.trim() + ' ' + titleEl.href;

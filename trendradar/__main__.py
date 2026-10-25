@@ -35,19 +35,19 @@ class NewsAnalyzer:
         "incremental": {
             "mode_name": "增量模式",
             "description": "增量模式（只关注新增新闻，无新增时不推送）",
-            "report_type": "增量分析",
+            "report_type": "Phân tích tin mới",
             "should_send_notification": True,
         },
         "current": {
             "mode_name": "当前榜单模式",
             "description": "当前榜单模式（当前榜单匹配新闻 + 新增新闻区域 + 按时推送）",
-            "report_type": "当前榜单",
+            "report_type": "Bảng tin hiện tại",
             "should_send_notification": True,
         },
         "daily": {
             "mode_name": "全天汇总模式",
             "description": "全天汇总模式（所有匹配新闻 + 新增新闻区域 + 按时推送）",
-            "report_type": "全天汇总",
+            "report_type": "Tổng hợp cả ngày",
             "should_send_notification": True,
         },
     }
@@ -381,8 +381,8 @@ class NewsAnalyzer:
             if ai_mode != mode:
                 # 根据 AI 模式确定报告类型
                 ai_report_type = {
-                    "daily": "当日汇总",
-                    "current": "当前榜单",
+                    "daily": "Tổng hợp trong ngày",
+                    "current": "Bảng tin hiện tại",
                     "incremental": "增量更新"
                 }.get(ai_mode, report_type)
             else:
@@ -927,7 +927,7 @@ class NewsAnalyzer:
         now = self.ctx.get_time()
         print(f"当前北京时间: {now.strftime('%Y-%m-%d %H:%M:%S')}")
 
-        if not self.ctx.config["ENABLE_CRAWLER"]:
+        if not self.ctx.config["ENABLE_CRAWLER"] and not self.ctx.rss_enabled:
             print("爬虫功能已禁用（ENABLE_CRAWLER=False），程序退出")
             return False
 
@@ -946,6 +946,9 @@ class NewsAnalyzer:
 
     def _crawl_data(self) -> Tuple[Dict, Dict, List]:
         """执行数据爬取"""
+        # platforms.enabled controls hotlists independently of RSS.
+        if not self.ctx.config["ENABLE_CRAWLER"]:
+            return {}, {}, []
         ids = []
         domain_rules = {}
         for platform in self.ctx.platforms:
@@ -1428,7 +1431,8 @@ class NewsAnalyzer:
         # 获取当前监控平台ID列表
         current_platform_ids = self.ctx.platform_ids
 
-        new_titles = self.ctx.detect_new_titles(current_platform_ids)
+        hotlists_enabled = self.ctx.config["ENABLE_CRAWLER"]
+        new_titles = self.ctx.detect_new_titles(current_platform_ids) if hotlists_enabled else {}
         time_info = self.ctx.format_time()
         word_groups, filter_words, global_filters = self.ctx.load_frequency_words(self.frequency_file)
 
@@ -1440,7 +1444,7 @@ class NewsAnalyzer:
 
         # current 模式需要使用完整的历史数据
         if self.report_mode == "current":
-            analysis_data = self._load_analysis_data()
+            analysis_data = self._load_analysis_data() if hotlists_enabled else ({}, {}, {}, {}, word_groups, filter_words, global_filters)
             if analysis_data:
                 (
                     all_results,
@@ -1488,7 +1492,7 @@ class NewsAnalyzer:
                 raise RuntimeError("数据一致性检查失败：保存后立即读取失败")
         elif self.report_mode == "daily":
             # daily 模式：使用全天累计数据
-            analysis_data = self._load_analysis_data()
+            analysis_data = self._load_analysis_data() if hotlists_enabled else ({}, {}, {}, {}, word_groups, filter_words, global_filters)
             if analysis_data:
                 (
                     all_results,

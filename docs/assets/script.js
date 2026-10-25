@@ -1,10 +1,10 @@
 /**
- * TrendRadar 配置文件编辑器核心逻辑
+ * TrendRadar - Trình chỉnh sửa cấu hình核心逻辑
  * 特点：确保原始 YAML 的注释和格式 100% 保留
  */
 
 // 编辑器常量
-const EDITOR_LINE_HEIGHT = 19.5;  // 编辑器行高（px），用于滚动定位计算
+const EDITOR_LINE_HEIGHT = 19.5;  // Chỉnh sửa器行高（px），用于滚动定位计算
 
 // ==========================================
 // 0. 注释高亮功能
@@ -43,54 +43,6 @@ function syncScroll(textareaId, backdropId) {
     }
 }
 
-// ==========================================
-// 12. 二维码放大弹窗逻辑
-// ==========================================
-
-function getQrModalData() {
-    return {
-        weixin: {
-            icon: '<i class="fa-brands fa-weixin text-green-600"></i>',
-            iconBg: 'bg-green-100',
-            title: t('qr.weixin.title'),
-            subtitle: t('qr.weixin.subtitle'),
-            img: './assets/weixin.webp',
-            alt: '微信公众号',
-            hint: t('qr.weixin.hint')
-        },
-        donate: {
-            icon: '<i class="fa-solid fa-hand-holding-heart text-emerald-600"></i>',
-            iconBg: 'bg-emerald-100',
-            title: t('qr.donate.title'),
-            subtitle: t('qr.donate.subtitle'),
-            img: 'https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2026%2F01%2F18ecce7c224ce0ea4c59394c29e408f8-e0d1db45.webp',
-            alt: '微信支付',
-            hint: t('qr.donate.hint')
-        }
-    };
-}
-
-function openQrModal(type) {
-    const data = getQrModalData()[type];
-    if (!data) return;
-    const modal = document.getElementById('qr-modal');
-    document.getElementById('qr-modal-icon').className = 'w-10 h-10 rounded-xl flex items-center justify-center text-lg ' + data.iconBg;
-    document.getElementById('qr-modal-icon').innerHTML = data.icon;
-    document.getElementById('qr-modal-title').textContent = data.title;
-    document.getElementById('qr-modal-subtitle').textContent = data.subtitle;
-    document.getElementById('qr-modal-img').src = data.img;
-    document.getElementById('qr-modal-img').alt = data.alt;
-    document.getElementById('qr-modal-hint').textContent = data.hint;
-    modal.classList.remove('hidden');
-}
-
-function closeQrModal() {
-    const modal = document.getElementById('qr-modal');
-    if (modal) modal.classList.add('hidden');
-}
-
-window.openQrModal = openQrModal;
-window.closeQrModal = closeQrModal;
 const MODULE_DEFS = [
     { id: 1, nameKey: "mod.app", key: "app", editable: false },
     { id: 2, nameKey: "mod.platforms", key: "platforms", editable: true },
@@ -109,9 +61,9 @@ const MODULE_DEFS = [
 
 // 初始默认内容 (用于空状态) - 只显示提示文本
 function getInitialYaml() { return t('init.configPlaceholder'); }
-const INITIAL_YAML = `# 在此粘贴你的 config.yaml...
-# 或拖拽文件到编辑器区域
-# 或点击右上角"加载官网最新配置"`;
+const INITIAL_YAML = `# Dán config.yaml của bạn vào đây...
+# Hoặc kéo thả tệp vào trình chỉnh sửa
+# Hoặc nhấp "Tải cấu hình mới nhất"`;
 
 // LocalStorage 键名
 const STORAGE_KEY_CONFIG = 'trendradar_config_yaml';
@@ -129,7 +81,7 @@ const REMOTE_VERSION_URL = GITHUB_RAW_BASE + 'version_configs';
 // 仅文件名不同，复用同一上游仓库与 CDN 回退源
 function remoteConfigPath(type) {
     const en = (typeof getLang === 'function' && getLang() === 'en');
-    const suffix = en ? '.en' : '';
+    const suffix = (typeof getLang === 'function' && getLang() === 'vi') ? '.vi' : en ? '.en' : '';
     const names = {
         config: 'config/config' + suffix + '.yaml',
         frequency: 'config/frequency_words' + suffix + '.txt',
@@ -139,7 +91,7 @@ function remoteConfigPath(type) {
 }
 // 当前语言对应的完整远程配置 URL（供 fetchWithFallback 使用，须以 GITHUB_RAW_BASE 开头）
 function remoteConfigUrl(type) {
-    return GITHUB_RAW_BASE + remoteConfigPath(type);
+    return getLang() === 'vi' ? '../' + remoteConfigPath(type) : GITHUB_RAW_BASE + remoteConfigPath(type);
 }
 // 当前语言对应的配置文件名（用于弹窗展示与提示，如 "config.yaml" / "config.en.yaml"）
 function remoteConfigName(type) {
@@ -463,7 +415,7 @@ function _saveToStorage(content, storageKey, timeKey, label) {
             updateSaveTimeDisplay();
         }
     } catch (e) {
-        console.warn(`LocalStorage 保存 ${label} 失败:`, e);
+        console.warn(`LocalStorage Lưu ${label} 失败:`, e);
     }
 }
 
@@ -506,7 +458,7 @@ function formatSaveTime(isoString) {
     if (diffHours < 24) return diffHours + t('time.hoursAgo');
     if (diffDays < 7) return diffDays + t('time.daysAgo');
 
-    return date.toLocaleDateString(getLang() === 'zh' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleDateString(getLang() === 'vi' ? 'vi-VN' : getLang() === 'zh' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
 // 更新保存时间显示
@@ -519,7 +471,7 @@ function updateSaveTimeDisplay() {
     const configLabelEl = document.getElementById('config-save-label');
     if (configTimeEl) {
         configTimeEl.textContent = formatSaveTime(configTime);
-        configTimeEl.title = configTime ? new Date(configTime).toLocaleString(getLang() === 'zh' ? 'zh-CN' : 'en-US') : t('save.notSaved');
+        configTimeEl.title = configTime ? new Date(configTime).toLocaleString(getLang() === 'vi' ? 'vi-VN' : getLang() === 'zh' ? 'zh-CN' : 'en-US') : t('save.notSaved');
         if (configLabelEl) {
             if (configTime) {
                 configLabelEl.classList.remove('hidden');
@@ -534,7 +486,7 @@ function updateSaveTimeDisplay() {
     const frequencyLabelEl = document.getElementById('frequency-save-label');
     if (frequencyTimeEl) {
         frequencyTimeEl.textContent = formatSaveTime(frequencyTime);
-        frequencyTimeEl.title = frequencyTime ? new Date(frequencyTime).toLocaleString(getLang() === 'zh' ? 'zh-CN' : 'en-US') : t('save.notSaved');
+        frequencyTimeEl.title = frequencyTime ? new Date(frequencyTime).toLocaleString(getLang() === 'vi' ? 'vi-VN' : getLang() === 'zh' ? 'zh-CN' : 'en-US') : t('save.notSaved');
         if (frequencyLabelEl) {
             if (frequencyTime) {
                 frequencyLabelEl.classList.remove('hidden');
@@ -550,7 +502,7 @@ function updateSaveTimeDisplay() {
     const timelineLabelEl = document.getElementById('timeline-save-label');
     if (timelineTimeEl) {
         timelineTimeEl.textContent = formatSaveTime(timelineTime);
-        timelineTimeEl.title = timelineTime ? new Date(timelineTime).toLocaleString(getLang() === 'zh' ? 'zh-CN' : 'en-US') : t('save.notSaved');
+        timelineTimeEl.title = timelineTime ? new Date(timelineTime).toLocaleString(getLang() === 'vi' ? 'vi-VN' : getLang() === 'zh' ? 'zh-CN' : 'en-US') : t('save.notSaved');
         if (timelineLabelEl) {
             if (timelineTime) {
                 timelineLabelEl.classList.remove('hidden');
@@ -606,7 +558,7 @@ window.openLoadConfigModal = function() {
             </div>
             <div class="text-xs text-gray-400 mt-3 p-2 bg-gray-50 rounded">
                 <i class="fa-solid fa-info-circle mr-1"></i>
-                ${t('loadModal.source')}<a href="https://github.com/sansan0/TrendRadar" target="_blank" class="text-blue-500 hover:underline">sansan0/TrendRadar</a>
+                ${t('loadModal.source')}${getLang() === 'vi' ? 'Tệp mẫu tiếng Việt trong dự án' : '<a href="https://github.com/sansan0/TrendRadar" target="_blank" class="text-blue-500 hover:underline">sansan0/TrendRadar</a>'}
             </div>
             <div class="flex justify-end gap-2 mt-4">
                 <button onclick="closeLoadConfigModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">${t('loadModal.cancel')}</button>
@@ -951,7 +903,7 @@ function renderControls(mod) {
             html += `<div class="text-xs text-gray-500 mt-2 p-2 bg-blue-50 rounded border border-blue-200">
                         <i class="fa-solid fa-info-circle mr-1 text-blue-500"></i>
                         <strong>${t('common.description')}</strong><code>method=keyword</code> ${t('ctrl.filterNote')} <code>frequency_words.txt</code>;
-                        <code>method=ai</code> ${t('ctrl.filterNote')} <code>ai_interests.txt</code> + AI filter config.<br>
+                        <code>method=ai</code> ${t('ctrl.filterNote')} <code>ai_interests.txt</code> + cấu hình bộ lọc AI.<br>
                         <code>priority_sort_enabled</code> ${t('ctrl.aiFilterNote')}
                      </div>`;
             break;
@@ -1258,7 +1210,7 @@ function createNumberControl(mod, path, label) {
 }
 
 function createSelectControl(mod, path, label, options) {
-    const optionsHtml = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+    const optionsHtml = options.map(opt => `<option value="${opt}">${getLang() === 'vi' ? t('option.' + opt) : opt}</option>`).join('');
     return `
         <div>
             <label class="block text-[10px] uppercase tracking-wider font-bold text-gray-400 mb-1">${label}</label>
@@ -1408,14 +1360,14 @@ function parseFrequencyText(text) {
     const result = {
         globalFilter: [],
         wordGroups: [],
-        originalText: text  // 保存原始文本
+        originalText: text  // Lưu原始文本
     };
 
     const lines = text.split('\n');
     let currentSection = null;
     let currentGroup = null;
-    let lastLineWasAlias = false;  // 追踪上一行是否为别名行
-    let relatedGroupsBuffer = [];  // 缓存连续的相关组
+    let lastLineWasAlias = false;  // 追踪上一行是否为Tên đại diện行
+    let relatedGroupsBuffer = [];  // 缓存连续的Liên quan
     let pendingComments = [];  // 缓存待分配的注释行
 
     // 辅助函数：保存缓存的相关组
@@ -1515,7 +1467,7 @@ function parseFrequencyText(text) {
                     } else {
                         // 新的单个别名（可能会升级为别名组）
                         if (currentGroup) {
-                            // 保存当前词组到缓存（而不是直接添加到结果）
+                            // 保存当前词组到缓存（而不是直接Thêm到结果）
                             relatedGroupsBuffer.push(currentGroup);
                         }
                         currentGroup = {
@@ -1674,7 +1626,7 @@ function buildFrequencyText(data) {
 
     // 如果没有原始文本，使用默认模板
     let text = '# ═══════════════════════════════════════════════════════════════\n';
-    text += '#                    TrendRadar 频率词配置文件\n';
+    text += '#                    Cấu hình từ khóa TrendRadar\n';
     text += '# ═══════════════════════════════════════════════════════════════\n\n';
 
     text += '[GLOBAL_FILTER]\n';
@@ -2035,7 +1987,7 @@ function renderFrequencyPanel(data) {
                 }).join('')}
             </div>
 
-            <!-- 底部添加按钮 -->
+            <!-- 底部Thêm按钮 -->
             <div class="mt-4 flex justify-center">
                 <button onclick="addWordGroup('bottom')" class="text-sm bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 shadow-sm transition-all flex items-center gap-2">
                     <i class="fa-solid fa-plus-circle"></i>
@@ -2057,7 +2009,7 @@ function renderFrequencyPanel(data) {
             // 创建新的 Sortable 实例
             container.sortableInstance = new Sortable(container, {
                 animation: 150,
-                filter: '.editable-area, input, button, select, textarea',  // 排除编辑区域
+                filter: '.editable-area, input, button, select, textarea',  // Loại trừChỉnh sửa区域
                 preventOnFilter: false,  // 允许在过滤区域正常交互
                 ghostClass: 'sortable-ghost',
                 chosenClass: 'sortable-chosen',
@@ -2115,7 +2067,7 @@ window.removeGlobalFilter = function(filter) {
 }
 
 // Word Groups 操作
-let pendingWordGroupPosition = 'top';  // 记录添加位置：'top', 'bottom', 或数字索引
+let pendingWordGroupPosition = 'top';  // 记录Thêm位置：'top', 'bottom', 或数字索引
 
 window.addWordGroup = function(position = 'top') {
     pendingWordGroupPosition = position;
@@ -2386,36 +2338,11 @@ window.openDeepSeekAI = function(type, groupIndex) {
     const userInput = window.prompt(t('prompt.enterCoreKeyword'));
     if (!userInput) return;
 
-    const promptText = `我正在配置一个新闻聚合系统，需要通过 Python 正则表达式 抓取关于【${userInput}】的新闻。
-
-请帮我完成以下步骤，并最终只输出一个正则表达式字符串：
-
-第一步：【精准关键词筛选】
-请列出与【${userInput}】强绑定的核心词汇：
-1. 核心品牌：包括中文全称、简称、股票代码、别名。
-2. 核心人物：仅限最高决策层或极具代表性的创始人。
-3. 独家产品：必须是具有极高辨识度的独家产品名。
-4. 核心工作室/子品牌：强相关的下属机构。
-
-第二步：【严格清洗与过滤】（请严格执行）
-1. 包含关系去重（最短匹配原则）：
-   - 中文：如果列表里已经有了核心短词（如“腾讯”），请删除所有包含该短词的长词（如“腾讯云”、“腾讯视频”统统不要，因为它们会被短词命中）。
-   - 英文：如果有了 \\bKeyword\\b，就不要再出现 Keyword。
-2. 彻底排除无关公司：
-   - 绝对不要包含：该品牌的竞争对手、合作伙伴（如京东、美团、字节跳动等非隶属公司）。
-3. 彻底排除通用黑话：
-   - 绝对不要包含：行业通用词（如“互联网”、“大厂”、“新质生产力”、“人工智能”、“元宇宙”、“金融科技”等）。
-
-第三步：【构建 Python 正则】
-将清洗后的词汇合并，格式要求如下：
-1. 英文处理：所有英文单词必须前后加 \\b（例如 \\bWord\\b），严禁出现没有边界符的英文单词。
-2. 连接符：用 | 连接。
-
-最终输出示例格式：
-/词A|词B|\\bEnglishWord\\b/ => ${userInput}
-
-输出要求：
-- 只要这一行正则表达式，不要任何解释，不要代码块。`;
+    const promptText = `Tôi đang cấu hình hệ thống tổng hợp tin tức và cần biểu thức chính quy Python để theo dõi 【${userInput}】.
+Chọn tên thương hiệu, tên viết tắt, mã cổ phiếu, người sáng lập, sản phẩm và công ty con có liên quan trực tiếp.
+Loại bỏ từ trùng lặp; nếu đã có từ ngắn thì bỏ từ dài chứa nó. Không thêm đối thủ, đối tác hoặc thuật ngữ chung của ngành.
+Bọc từ tiếng Anh bằng \\b ở cả hai đầu, nối các từ bằng |.
+Chỉ trả về một dòng theo mẫu /từA|từB|\\bEnglishWord\\b/ => ${userInput}, không giải thích hoặc dùng khối mã.`;
 
     const textArea = document.createElement("textarea");
     textArea.value = promptText;
@@ -2432,7 +2359,7 @@ window.openDeepSeekAI = function(type, groupIndex) {
     try {
         copySuccess = document.execCommand('copy');
     } catch (err) {
-        console.error('复制失败:', err);
+        console.error('Sao chép失败:', err);
     }
 
     document.body.removeChild(textArea);
@@ -2618,7 +2545,7 @@ function updatePlatformsInYaml(platforms) {
     updateBackdrop('yaml-editor', 'yaml-backdrop');
     debounceSaveConfig();
     renderPlatformsList();
-    renderStandaloneLists(); // 同步更新独立展示区的平台选择列表
+    renderStandaloneLists(); // 同步更新Mục hiển thị riêng的平台选择列表
 }
 
 // ==========================================
@@ -3063,7 +2990,7 @@ function updateRssFeedsInYaml(feeds) {
     updateBackdrop('yaml-editor', 'yaml-backdrop');
     debounceSaveConfig();
     renderRssFeedsList();
-    renderStandaloneLists(); // 同步更新独立展示区的 RSS 选择列表
+    renderStandaloneLists(); // 同步更新Mục hiển thị riêng的 RSS 选择列表
 }
 
 // 打开 RSS 添加/编辑弹窗
@@ -3347,7 +3274,7 @@ window.checkVersion = async function() {
         showVersionComparisonModal(fileName, currentVersion, latestVersion);
 
     } catch (err) {
-        console.error('版本检测失败:', err);
+        console.error('Kiểm tra phiên bản失败:', err);
         showToast(t('toast.versionCheckFailed') + err.message, 'error');
     } finally {
         btn.innerHTML = originalHTML;
@@ -3485,7 +3412,7 @@ const PRESET_PLATFORMS = [
 ];
 
 /**
- * 打开平台添加弹窗
+ * 打开平台Thêm弹窗
  */
 window.openPlatformModal = function() {
     const modal = document.getElementById('platform-modal');
@@ -3499,7 +3426,7 @@ window.openPlatformModal = function() {
 }
 
 /**
- * 关闭平台添加弹窗
+ * Đóng平台Thêm弹窗
  */
 window.closePlatformModal = function() {
     const modal = document.getElementById('platform-modal');
@@ -3509,7 +3436,7 @@ window.closePlatformModal = function() {
 }
 
 /**
- * 切换平台添加标签页
+ * 切换平台Thêm标签页
  */
 window.switchPlatformTab = function(tab) {
     currentPlatformTab = tab;
@@ -3550,7 +3477,7 @@ window.switchPlatformTab = function(tab) {
 }
 
 /**
- * 渲染可用平台列表（排除已添加的）
+ * 渲染可用Danh sách nền tảng（Loại trừ已Thêm的）
  */
 function renderAvailablePlatforms() {
     const container = document.getElementById('available-platforms-list');
@@ -3595,7 +3522,7 @@ function renderAvailablePlatforms() {
 }
 
 /**
- * 确认添加平台
+ * 确认Thêm nền tảng
  */
 window.confirmAddPlatform = function(key, name) {
     let platformKey = key;
@@ -3742,7 +3669,7 @@ const PRESET_META = {
 function getDayNames() { return [t('day.1'), t('day.2'), t('day.3'), t('day.4'), t('day.5'), t('day.6'), t('day.7')]; }
 
 /**
- * 从当前 config.yaml 中读取 schedule.preset
+ * 从Đang dùng config.yaml 中读取 schedule.preset
  */
 function getActivePreset() {
     try {
@@ -3867,7 +3794,7 @@ function syncTimelineToUI() {
 }
 
 /**
- * 渲染周视图（7 天 × 24 小时水平条）
+ * 渲染Xem theo tuần（7 天 × 24 小时水平条）
  */
 function renderWeekView(config, presetName) {
     const periods = config.periods || {};
@@ -4219,7 +4146,7 @@ function renderPeriodDetails(config, presetName) {
 
 /**
  * 渲染行为开关（可交互）
- * presetName: 当前预设名（用于定位 YAML 中的位置）
+ * presetName: Đang dùng预设名（用于定位 YAML 中的位置）
  * periodKey: 'default' 或时间段 key（如 'weekday_morning'）
  */
 function renderBehaviorToggles(cfg, presetName, periodKey, rawCfg = null) {
@@ -4341,7 +4268,7 @@ function renderBehaviorToggles(cfg, presetName, periodKey, rawCfg = null) {
 }
 
 /**
- * 点击周视图色块 → 滚动到对应 period 卡片并高亮
+ * NhấpXem theo tuần色块 → 滚动到对应 period 卡片并高亮
  */
 window.scrollToPeriodCard = function(periodKey) {
     const card = document.getElementById('tl-period-' + periodKey);
@@ -4827,7 +4754,7 @@ function insertTimelineField(lines, targetStart, targetEnd, targetIndent, field,
 }
 
 /**
- * 点击预设卡片 → 更新 config.yaml 中的 schedule.preset + 滚动左侧编辑器
+ * Nhấp预设卡片 → 更新 config.yaml 中的 schedule.preset + 滚动左侧Chỉnh sửa器
  */
 window.selectTimelinePreset = function(name) {
     // 更新 config.yaml 中的 schedule.preset
@@ -4882,7 +4809,7 @@ window.selectTimelinePreset = function(name) {
 }
 
 /**
- * 滚动左侧 timeline 编辑器到对应预设位置
+ * 滚动左侧 timeline Chỉnh sửa器到对应预设位置
  */
 function scrollTimelineEditorToPreset(presetName) {
     const editor = document.getElementById('timeline-editor');
@@ -5643,7 +5570,7 @@ function removePeriodFromDayPlanInLines(lines, sectionInfo, planKey, periodKey) 
 // ── 1.3 / 3A.4 内联编辑（双击编辑文本）──
 
 /**
- * 预设卡片名称/描述内联编辑
+ * 预设卡片名称/描述内联Chỉnh sửa
  */
 window.tlInlineEdit = function(el, presetName, field, currentValue) {
     if (el.querySelector('input')) return;
@@ -5701,7 +5628,7 @@ function updatePresetMeta(presetName, field, value) {
 }
 
 /**
- * 时间段名称内联编辑
+ * 时间段名称内联Chỉnh sửa
  */
 window.tlInlineEditPeriod = function(el, presetName, periodKey, currentValue) {
     if (el.querySelector('input')) return;
@@ -5839,15 +5766,4 @@ function reorderDayPlanPeriods(presetName, planKey, orderedKeys) {
 
     clearTimeout(window._tlRenderTimer);
     window._tlRenderTimer = setTimeout(() => syncTimelineToUI(), 500);
-}
-
-// ==========================================
-// 支持侧栏 折叠/展开
-// ==========================================
-function toggleSupportSidebar() {
-    const wrap = document.querySelector('.support-sidebar-wrap');
-    const btn = document.getElementById('sidebar-toggle-btn');
-    const isCollapsed = wrap.classList.toggle('collapsed');
-    btn.classList.toggle('is-collapsed', isCollapsed);
-    btn.title = isCollapsed ? t('sidebar.expand') : t('sidebar.collapse');
 }

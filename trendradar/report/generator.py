@@ -219,7 +219,7 @@ def generate_html_report(
         )
     else:
         # 默认简单 HTML
-        html_content = f"<html><body><h1>Report</h1><pre>{report_data}</pre></body></html>"
+        html_content = f"<html lang='vi'><body><h1>Báo cáo</h1><pre>{report_data}</pre></body></html>"
 
     # 1. 保存时间戳快照（历史记录）
     with open(snapshot_file, "w", encoding="utf-8") as f:

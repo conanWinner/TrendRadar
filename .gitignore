@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+
+# Local credentials and generated runtime artifacts.
+/.aws
+/.railway/
+/.venv/
+/railway-access.txt
+/TrendRadar.desktop
+/output/html/
+/output/index.html
+/output/meta/
+/output/news/*.db
+/output/report_backups/
+/output/report_trash/
+/output/rss/
+
+# Các bản cấu hình có thể chứa khóa kết nối riêng.
+/output/config_versions/
+/output/config_backups/

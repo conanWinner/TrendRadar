@@ -414,7 +414,7 @@ class AppContext:
         ai_content: Optional[str] = None,
         standalone_data: Optional[Dict] = None,
         ai_stats: Optional[Dict] = None,
-        report_type: str = "热点分析报告",
+        report_type: str = "Báo cáo phân tích tin nổi bật",
     ) -> List[str]:
         """分批处理消息内容（支持热榜+RSS合并+AI分析+独立展示区）
 

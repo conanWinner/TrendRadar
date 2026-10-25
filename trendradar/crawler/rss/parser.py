@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Optional, Dict, Any
 from email.utils import parsedate_to_datetime
+from urllib.parse import urlparse
+from zoneinfo import ZoneInfo
 
 try:
     import feedparser
@@ -70,7 +72,7 @@ class RSSParser:
 
         items = []
         for entry in feed.entries:
-            item = self._parse_entry(entry)
+            item = self._parse_entry(entry, feed_url)
             if item:
                 items.append(item)
 
@@ -213,7 +215,7 @@ class RSSParser:
 
         return self.parse(response.text, url)
 
-    def _parse_entry(self, entry: Any) -> Optional[ParsedRSSItem]:
+    def _parse_entry(self, entry: Any, feed_url: str = "") -> Optional[ParsedRSSItem]:
         """解析单个条目"""
         title = self._clean_text(entry.get("title", ""))
 
@@ -243,7 +245,7 @@ class RSSParser:
         if not title:
             return None
 
-        published_at = self._parse_date(entry)
+        published_at = self._parse_date(entry, feed_url)
         summary = self._parse_summary(entry)
         author = self._parse_author(entry)
         guid = entry.get("id") or entry.get("guid", {}).get("value") or url
@@ -273,7 +275,7 @@ class RSSParser:
 
         return text.strip()
 
-    def _parse_date(self, entry: Any) -> Optional[str]:
+    def _parse_date(self, entry: Any, feed_url: str = "") -> Optional[str]:
         """解析发布日期"""
         # feedparser 会自动解析日期到 published_parsed
         date_struct = entry.get("published_parsed") or entry.get("updated_parsed")
@@ -300,6 +302,21 @@ class RSSParser:
                 return dt.isoformat()
             except (ValueError, TypeError):
                 pass
+
+            # Tuoi Tre publishes a localized date that feedparser cannot interpret.
+            # Keep this fallback limited to its own feeds so other publishers' dates
+            # are not guessed or assigned Vietnam time.
+            try:
+                hostname = urlparse(feed_url).hostname
+            except (TypeError, ValueError):
+                hostname = None
+            if hostname and hostname.lower() in {"tuoitre.vn", "www.tuoitre.vn"}:
+                normalized_date = date_str.replace(r"\u202f", " ").replace("\u202f", " ").strip()
+                try:
+                    dt = datetime.strptime(normalized_date, "%m/%d/%Y %I:%M:%S %p")
+                    return dt.replace(tzinfo=ZoneInfo("Asia/Ho_Chi_Minh")).isoformat()
+                except (ValueError, TypeError):
+                    pass
 
         return None
 

@@ -10,7 +10,6 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 
 <a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FTrendRadar | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-[![GitHub Stars](https://img.shields.io/github/stars/sansan0/TrendRadar?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/TrendRadar/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/sansan0/TrendRadar?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/TrendRadar/network/members)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/TrendRadar)
@@ -63,111 +62,15 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 |:---:|:---:|:---:|
 | [🚀 **Quick Start**](#-quick-start) | [AI Analysis](#-ai-analysis) | [⚙️ **Configuration Guide**](#configuration-guide) |
 | [Docker Deployment](#6-docker-deployment) / [Local Deploy](#local-deploy) | [MCP Clients](#-mcp-clients) | [📝 **Changelog**](#-changelog) |
-| [🎯 **Core Features**](#-core-features) | [☕ **Support Project**](#-support-project) | [📚 **Related Projects**](#-related-projects) |
+| [🎯 **Core Features**](#-core-features) |  | [📚 **Related Projects**](#-related-projects) |
 
 </div>
 
 <br>
 
-- Thanks to **stargazers**, your stars and forks are the best support for open source 😍
+### Data Source
 
-<details>
-<summary>👉 Click to view <strong>Acknowledgments</strong> (Angel Round Honor Roll 🔥73+🔥 supporters)</summary>
-
-### Acknowledgments to Early Supporters
-
-> 💡 **Special Note**:
->
-> 1. **About the List**: The table below records supporters from the early stage (Angel Round) of the project. Due to the manual nature of statistics in the early days, **there may be omissions or incomplete records. If anyone was missed, it was unintentional, and we ask for your kind understanding**.
-> 2. **Future Plan**: To focus limited energy back on code development and feature iteration, **this list will no longer be manually maintained as of today**.
->
-> Whether your name is on the list or not, your every bit of support is the cornerstone that allows TrendRadar to be where it is today. 🙏
-
-### Infrastructure Support
-
-Thanks to **GitHub** for providing free infrastructure, which is the biggest prerequisite for this project to run conveniently with **one-click fork**.
-
-### Data Support
-
-This project uses the API from [newsnow](https://github.com/ourongxing/newsnow) to fetch multi-platform data. Special thanks to the author for providing this service.
-
-After communication, the author indicated no concerns about server pressure, but this is based on their goodwill and trust. Please everyone:
-- **Visit the [newsnow project](https://github.com/ourongxing/newsnow) and give it a star**
-- When deploying with Docker, please control the frequency reasonably and avoid being overly greedy
-
-### Promotion Support
-
-> Thanks to the following platforms and individuals for recommendations (in chronological order)
-
-- [Appinn (小众软件)](https://mp.weixin.qq.com/s/fvutkJ_NPUelSW9OGK39aA) - Open source software recommendation platform
-- [LinuxDo Community](https://linux.do/) - Tech enthusiasts community
-- [Ruan Yifeng's Weekly](https://github.com/ruanyf/weekly) - Influential tech weekly in Chinese tech circle
-
-### Community Support
-
-> Thanks to **financial supporters**. Your generosity has transformed into snacks and drinks beside my keyboard, accompanying every iteration of this project
->
-> **Return of "One-Yuan Appreciation"**:
-> With the release of v5.0.0, the project enters a new phase. To support growing API costs and caffeine consumption, the "One-Yuan Appreciation" channel is now reopened. Every bit of your kindness translates into Tokens and motivation in the code world. 🚀 [Support Now](#-support-project)
-
-| Supporter | Amount (CNY) | Date | Note |
-| :-------: | :----------: | :--: | :--: |
-| D*5 | 1.8 * 3 | 2025.11.24 | |
-| *鬼 | 1 | 2025.11.17 | |
-| *超 | 10 | 2025.11.17 | |
-| R*w | 10 | 2025.11.17 | Great agent work! |
-| J*o | 1 | 2025.11.17 | Thanks for open source |
-| *晨 | 8.88 | 2025.11.16 | Nice project |
-| *海 | 1 | 2025.11.15 | |
-| *德 | 1.99 | 2025.11.15 | |
-| *疏 | 8.8 | 2025.11.14 | Great project |
-| M*e | 10 | 2025.11.14 | Open source is not easy |
-| **柯 | 1 | 2025.11.14 | |
-| *云 | 88 | 2025.11.13 | Good project |
-| *W | 6 | 2025.11.13 | |
-| *凯 | 1 | 2025.11.13 | |
-| 对*. | 1 | 2025.11.13 | Thanks for TrendRadar |
-| s*y | 1 | 2025.11.13 | |
-| **翔 | 10 | 2025.11.13 | Wish I found it earlier |
-| *韦 | 9.9 | 2025.11.13 | TrendRadar is awesome |
-| h*p | 5 | 2025.11.12 | Support Chinese open source |
-| c*r | 6 | 2025.11.12 | |
-| a*n | 5 | 2025.11.12 | |
-| 。*c | 1 | 2025.11.12 | Thanks for sharing |
-| ... | ... | ... | **(More 50+ supporters)** |
-
-</details>
-
-<br>
-
-## 🪄 Sponsors
-
-<div align="center">
-
-> **Sponsorship Open**
->
-> [Interested in sponsoring? View sponsorship and partnership details](https://trendradar.sandev.cc/en/sponsors/)
-
-</div>
-
-<br>
-
-<a name="-support-project"></a>
-
-### ❤️ Find it useful? Support TrendRadar
-
-> If TrendRadar has captured value for you, give it some fuel to keep evolving
->
-> Any amount is welcome; even 1 RMB is a gesture of encouragement for open source. Feel free to leave a note with your donation (´▽`ʃ♡ƪ)
-
-<div align="center">
-
-| WeChat Pay | Alipay |
-| --- | --- |
-| <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F2ae0a88d98079f7e876c2b4dc85233c6-9e8025.JPG" width="240" alt="WeChat Pay"> | <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F1ed4f20ab8e35be51f8e84c94e6e239b4-fe4947.JPG" width="240" alt="Alipay"> |
-
-</div>
-
+This project uses the API from [newsnow](https://github.com/ourongxing/newsnow) to fetch multi-platform data.
 
 ### 🤝 Attribution & Secondary Development
 
@@ -176,24 +79,9 @@ If you utilize the core code or draw inspiration from the logic of this project,
 This contributes to the sustainable maintenance of the project and the growth of the community. Thank you for your respect and support! ❤️
 
 
-### 💬 Feedback & Community
+### 💬 Feedback
 
-* **GitHub Issues**: Best for specific technical issues. Please provide complete information (screenshots, error logs, etc.) to help locate the problem quickly.
-* **WeChat Official Account**: It is recommended to leave comments under relevant articles. If you need to ask questions in the background, **liking/recommending** the article first is the best "icebreaker," and I can feel your appreciation (´▽`ʃ♡ƪ).
-* **QQ Group**: Follow the WeChat Official Account and reply "**交流群**" to join. Whether you're an AI beginner or a seasoned developer, looking for help or sharing ideas, you're welcome here. The group is all about mutual help and brainstorming — please read the group announcement first; describe your issue clearly with screenshots, and fellow members will help when available. Community wisdom is often faster and more comprehensive than any single person 🤝
-
-> **Friendly Reminder**:
-> This project is for open-source sharing, not a commercial product. Treat the author as a friend, not customer service, for better communication efficiency!
-
-<div align="center">
-
-| Follow on WeChat |
-| --- |
-| <img src="_image/weixin.png" width="500" title="Silicon-based Tea Room"/> |
-
-</div>
-
-<br>
+- **GitHub Issues**: For specific technical issues, include screenshots and error logs to help locate the problem.
 
 ## 📝 Changelog
 
@@ -880,7 +768,6 @@ https://github.com/sansan0/TrendRadar/blob/master/.github/workflows/crawler.yml
 
 ### 2025/06/18 - v1.1.0
 
-> **200 stars⭐** reached, continue celebrating with everyone~
 
 1. Important update, added weight, news you see now is hottest most concerned appearing at top
 2. Updated documentation usage, because recently updated many features, and previous usage docs I was lazy wrote simple (see ⚙️ frequency_words.txt complete configuration tutorial below)
@@ -2032,13 +1919,6 @@ Templates support two placeholders:
 
    Congratulations! Now you can start enjoying the efficient information flow brought by TrendRadar.
 
-   💬 Many users are sharing their experiences on the official account, we look forward to your insights~
-
-   - Want to learn more tips and advanced techniques?
-   - Need quick answers to problems?
-   - Have great ideas to share?
-
-   👉 Follow the WeChat Official Account「**[Silicon Tea Room](#-support-project)**」, your likes and comments are the motivation for continuous updates.
 
    <br>
 
@@ -3526,7 +3406,6 @@ AI analysis **does not** query real-time online data directly, but analyzes **lo
 
 Cherry Studio provides GUI config interface, 5-minute quick deployment, complex parts are one-click install.
 
-**Illustrated Deployment Tutorial**: Now updated to my WeChat Official Account (see [Support Project](#-support-project)), reply "mcp" to get
 
 **Detailed Deployment Tutorial**: [README-Cherry-Studio.md](README-Cherry-Studio.md)
 
@@ -3855,35 +3734,8 @@ Any client supporting Model Context Protocol can connect to TrendRadar:
 
 ## 📚 Related Projects
 
-> **4 Related Articles** (Chinese):
-
-- [Comment here for mobile Q&A by project author](https://mp.weixin.qq.com/s/KYEPfTPVzZNWFclZh4am_g)
-- [Breaking 1000 stars in 2 months - My GitHub project promotion experience](https://mp.weixin.qq.com/s/jzn0vLiQFX408opcfpPPxQ)
 - [Important notes for running this project via GitHub fork](https://mp.weixin.qq.com/s/C8evK-U7onG1sTTdwdW2zg)
-- [How to write WeChat Official Account or news articles based on this project](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
-
-> **AI Development**:
-- If you have niche requirements, you can develop based on my project yourself, even with zero programming experience
-- All my open-source projects use my own **AI-assisted software** to improve development efficiency, this tool is now open-source
-- **Core Function**: Quickly filter project code to feed AI, you just need to add personal requirements
-- **Project Address**: https://github.com/sansan0/ai-code-context-helper
-
-### Other Projects
-
-> 📍 Chairman Mao's Footprint Map - Interactive dynamic display of complete trajectory 1893-1976. Welcome comrades to contribute data
-
-- https://github.com/sansan0/mao-map
-
-> Bilibili Comment Data Visualization Analysis Software
-
-- https://github.com/sansan0/bilibili-comment-analyzer
-
-
-## Star History
-
-[![Star History Chart](https://star-history.dera.page/svg?repos=sansan0/TrendRadar)](https://star-history.dera.page/#sansan0/TrendRadar)
-
-<br>
+- [Writing news articles based on this project](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
 
 ## 📄 License
 

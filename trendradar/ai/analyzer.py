@@ -92,7 +92,7 @@ class AIAnalyzer:
         self.include_rss = analysis_config.get("INCLUDE_RSS", True)
         self.include_rank_timeline = analysis_config.get("INCLUDE_RANK_TIMELINE", False)
         self.include_standalone = analysis_config.get("INCLUDE_STANDALONE", False)
-        self.language = analysis_config.get("LANGUAGE", "Chinese")
+        self.language = analysis_config.get("LANGUAGE", "Vietnamese")
 
         # 加载提示词模板
         self.system_prompt, self.user_prompt_template = load_prompt_template(

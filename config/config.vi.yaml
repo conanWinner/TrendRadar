@@ -1,0 +1,200 @@
+# Cấu hình TrendRadar. Khóa cấu hình được giữ nguyên để tương thích.
+app:
+  timezone: Asia/Shanghai
+  show_version_update: true
+schedule:
+  enabled: false
+  preset: morning_evening
+platforms:
+  enabled: true
+  api_url: ''
+  sources:
+  - id: toutiao
+    name: Toutiao
+    expected_domain: toutiao.com
+  - id: baidu
+    name: Baidu - Tin nổi bật
+    expected_domain: baidu.com
+  - id: wallstreetcn-hot
+    name: WallStreetCN
+    expected_domain: wallstreetcn.com
+  - id: thepaper
+    name: The Paper
+    expected_domain: thepaper.cn
+  - id: bilibili-hot-search
+    name: Bilibili - Tin nổi bật
+    expected_domain: bilibili.com
+  - id: cls-hot
+    name: CLS - Tin nổi bật
+    expected_domain: cls.cn
+  - id: ifeng
+    name: iFeng
+    expected_domain: ifeng.com
+  - id: tieba
+    name: Tieba
+    expected_domain: baidu.com
+  - id: weibo
+    name: Weibo
+    expected_domain: weibo.com
+  - id: douyin
+    name: Douyin
+    expected_domain: douyin.com
+  - id: zhihu
+    name: Zhihu
+    expected_domain: zhihu.com
+rss:
+  enabled: true
+  freshness_filter:
+    enabled: true
+    max_age_days: 1
+  feeds:
+  - id: hacker-news
+    name: Hacker News
+    url: https://hnrss.org/frontpage
+  - id: ruanyifeng
+    name: Blog của Ruan Yifeng
+    url: http://www.ruanyifeng.com/blog/atom.xml
+    enabled: false
+  - id: yahoo-finance
+    name: Yahoo Finance
+    url: https://finance.yahoo.com/news/rssindex
+report:
+  mode: current
+  display_mode: keyword
+  sort_by_position_first: false
+  rank_threshold: 5
+  max_news_per_keyword: 0
+filter:
+  method: keyword
+  priority_sort_enabled: true
+ai_filter:
+  batch_size: 200
+  batch_interval: 2
+  min_score: 0.7
+  reclassify_threshold: 0.6
+  prompt_file: prompt.txt
+  extract_prompt_file: extract_prompt.txt
+  update_tags_prompt_file: update_tags_prompt.txt
+display:
+  region_order:
+  - new_items
+  - hotlist
+  - rss
+  - standalone
+  - ai_analysis
+  regions:
+    hotlist: true
+    new_items: false
+    rss: true
+    standalone: false
+    ai_analysis: true
+  standalone:
+    platforms:
+    - zhihu
+    - wallstreetcn-hot
+    rss_feeds: []
+    max_items: 20
+notification:
+  enabled: true
+  channels:
+    feishu:
+      webhook_url: ''
+    dingtalk:
+      webhook_url: ''
+    wework:
+      webhook_url: ''
+      msg_type: markdown
+    telegram:
+      bot_token: ''
+      chat_id: ''
+    email:
+      from: ''
+      password: ''
+      to: ''
+      smtp_server: ''
+      smtp_port: ''
+    ntfy:
+      server_url: https://ntfy.sh
+      topic: ''
+      token: ''
+    bark:
+      url: ''
+    slack:
+      webhook_url: ''
+    generic_webhook:
+      webhook_url: ''
+      payload_template: ''
+storage:
+  backend: auto
+  formats:
+    sqlite: true
+    txt: false
+    html: true
+  local:
+    data_dir: output
+    retention_days: 0
+  remote:
+    retention_days: 0
+    endpoint_url: ''
+    bucket_name: ''
+    access_key_id: ''
+    secret_access_key: ''
+    region: ''
+  pull:
+    enabled: false
+    days: 7
+ai:
+  model: deepseek/deepseek-v4-flash
+  api_key: ''
+  api_base: ''
+  timeout: 120
+  temperature: 1.0
+  max_tokens: 5000
+  num_retries: 1
+  fallback_models: []
+ai_analysis:
+  enabled: true
+  language: Vietnamese
+  prompt_file: ai_analysis_prompt.txt
+  mode: follow_report
+  max_news_for_analysis: 150
+  include_rss: false
+  include_standalone: true
+  include_rank_timeline: true
+ai_translation:
+  enabled: true
+  language: Vietnamese
+  prompt_file: ai_translation_prompt.txt
+  batch_size: 100
+  batch_interval: 2
+  scope:
+    hotlist: true
+    rss: true
+    standalone: true
+advanced:
+  debug: false
+  version_check_url: https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version
+  mcp_version_check_url: https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_mcp
+  configs_version_check_url: https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_configs
+  crawler:
+    request_interval: 2000
+    use_proxy: false
+    default_proxy: http://127.0.0.1:10801
+  rss:
+    request_interval: 1000
+    timeout: 15
+    use_proxy: false
+    proxy_url: ''
+  weight:
+    rank: 0.6
+    frequency: 0.3
+    hotness: 0.1
+  max_accounts_per_channel: 3
+  batch_size:
+    default: 4000
+    dingtalk: 20000
+    feishu: 30000
+    bark: 4000
+    slack: 4000
+  batch_send_interval: 3
+  feishu_message_separator: ━━━━━━━━━━━━━━━━

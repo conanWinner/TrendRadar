@@ -20,15 +20,15 @@ def get_batch_header(format_type: str, batch_num: int, total_batches: int) -> st
         格式化的批次头部字符串
     """
     if format_type == "telegram":
-        return f"<b>[第 {batch_num}/{total_batches} 批次]</b>\n\n"
+        return f"<b>[Đợt {batch_num}/{total_batches} đợt]</b>\n\n"
     elif format_type == "slack":
-        return f"*[第 {batch_num}/{total_batches} 批次]*\n\n"
+        return f"*[Đợt {batch_num}/{total_batches} đợt]*\n\n"
     elif format_type in ("wework_text", "bark"):
         # 企业微信文本模式和 Bark 使用纯文本格式
-        return f"[第 {batch_num}/{total_batches} 批次]\n\n"
+        return f"[Đợt {batch_num}/{total_batches} đợt]\n\n"
     else:
         # 飞书、钉钉、ntfy、企业微信 markdown 模式
-        return f"**[第 {batch_num}/{total_batches} 批次]**\n\n"
+        return f"**[Đợt {batch_num}/{total_batches} đợt]**\n\n"
 
 
 def get_max_batch_header_size(format_type: str) -> int:
@@ -109,7 +109,7 @@ def truncate_preserving_footer(content: str, max_bytes: int) -> str:
         return content
 
     # 各平台 footer 的常见开头模式
-    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\n更新时间"]
+    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\nThời gian cập nhật"]
     footer_start = -1
     for marker in footer_markers:
         pos = content.rfind(marker)
@@ -142,7 +142,7 @@ def _split_oversized_batch(content: str, max_content_bytes: int) -> List[str]:
         拆分后的子批次列表
     """
     # 识别 footer
-    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\n更新时间"]
+    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\nThời gian cập nhật"]
     footer = ""
     body = content
     for marker in footer_markers:

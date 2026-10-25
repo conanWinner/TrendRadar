@@ -208,7 +208,7 @@ def send_to_feishu(
                     if i < len(batches):
                         time.sleep(batch_interval)
                 else:
-                    error_msg = result.get("msg") or result.get("StatusMessage", "未知错误")
+                    error_msg = result.get("msg") or result.get("StatusMessage", "Lỗi không xác định")
                     print(
                         f"{log_prefix}第 {i}/{len(batches)} 批次发送失败 [{report_type}]，错误：{error_msg}"
                     )
@@ -308,7 +308,7 @@ def send_to_dingtalk(
         payload = {
             "msgtype": "markdown",
             "markdown": {
-                "title": f"TrendRadar 热点分析报告 - {report_type}",
+                "title": f"TrendRadar Báo cáo phân tích tin nổi bật - {report_type}",
                 "text": batch_content,
             },
         }
@@ -665,7 +665,7 @@ def send_to_email(
 
         # 设置邮件主题
         now = get_time_func() if get_time_func else datetime.now()
-        subject = f"TrendRadar 热点分析报告 - {report_type} - {now.strftime('%m月%d日 %H:%M')}"
+        subject = f"TrendRadar Báo cáo phân tích tin nổi bật - {report_type} - {now.strftime('%d/%m %H:%M')}"
         msg["Subject"] = Header(subject, "utf-8")
 
         # 设置其他标准 header
@@ -675,12 +675,12 @@ def send_to_email(
 
         # 添加纯文本部分（作为备选）
         text_content = f"""
-TrendRadar 热点分析报告
+TrendRadar Báo cáo phân tích tin nổi bật
 ========================
-报告类型：{report_type}
-生成时间：{now.strftime('%Y-%m-%d %H:%M:%S')}
+Loại báo cáo: {report_type}
+Thời gian tạo: {now.strftime('%Y-%m-%d %H:%M:%S')}
 
-请使用支持HTML的邮件客户端查看完整报告内容。
+Vui lòng dùng ứng dụng email hỗ trợ HTML để xem báo cáo đầy đủ.
         """
         text_part = MIMEText(text_content, "plain", "utf-8")
         msg.attach(text_part)
@@ -789,9 +789,9 @@ def send_to_ntfy(
 
     # 避免 HTTP header 编码问题
     report_type_en_map = {
-        "全天汇总": "Daily Summary",
-        "当前榜单": "Current Ranking",
-        "增量分析": "Incremental Update",
+        "Tổng hợp cả ngày": "Daily Summary",
+        "Bảng tin hiện tại": "Current Ranking",
+        "Phân tích tin mới": "Incremental Update",
         "通知连通性测试": "Notification Test",
     }
     report_type_en = report_type_en_map.get(report_type, "News Report")
@@ -1189,7 +1189,7 @@ def send_to_slack(
                 if i < len(batches):
                     time.sleep(batch_interval)
             else:
-                error_msg = response.text if response.text else f"状态码：{response.status_code}"
+                error_msg = response.text if response.text else f"状态码: {response.status_code}"
                 print(
                     f"{log_prefix}第 {i}/{len(batches)} 批次发送失败 [{report_type}]，错误：{error_msg}"
                 )

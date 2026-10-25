@@ -1,0 +1,231 @@
+# Lịch hoạt động TrendRadar.
+# Chọn mẫu bằng schedule.preset trong config.yaml.
+# Giữ nguyên mã khung giờ và lịch ngày khi chỉnh tên hiển thị.
+presets:
+  always_on:
+    name: Theo dõi cả ngày
+    description: Theo dõi cả ngày, gửi ngay khi có tin mới. Phù hợp người theo dõi
+      thường xuyên.
+    default:
+      collect: true
+      analyze: false
+      ai_mode: current
+      push: true
+      report_mode: incremental
+      once:
+        analyze: false
+        push: false
+    periods: {}
+    day_plans:
+      all_day:
+        periods: []
+    week_map:
+      1: all_day
+      2: all_day
+      3: all_day
+      4: all_day
+      5: all_day
+      6: all_day
+      7: all_day
+  morning_evening:
+    name: Tổng hợp sáng và tối
+    description: Gửi tin cả ngày và tổng hợp vào buổi tối. Phù hợp đa số người dùng.
+    default:
+      collect: true
+      analyze: true
+      ai_mode: current
+      push: true
+      report_mode: current
+      once:
+        analyze: false
+        push: false
+    periods:
+      evening_summary:
+        name: Tổng hợp buổi tối
+        start: '20:00'
+        end: '22:00'
+        analyze: true
+        ai_mode: daily
+        report_mode: daily
+        once:
+          analyze: true
+          push: true
+    day_plans:
+      all_day:
+        periods:
+        - evening_summary
+    week_map:
+      1: all_day
+      2: all_day
+      3: all_day
+      4: all_day
+      5: all_day
+      6: all_day
+      7: all_day
+  office_hours:
+    name: Giờ làm việc
+    description: Ngày thường gửi ba lần (đầu giờ, buổi trưa, cuối giờ); cuối tuần
+      gửi tin mới linh hoạt.
+    default:
+      collect: true
+      analyze: false
+      ai_mode: current
+      push: false
+      report_mode: current
+      once:
+        analyze: true
+        push: true
+    periods:
+      morning_briefing:
+        name: Điểm tin đầu giờ
+        start: 09:00
+        end: '11:00'
+        analyze: true
+        ai_mode: current
+        push: true
+        report_mode: current
+      noon_update:
+        name: Tin nổi bật buổi trưa
+        start: '13:00'
+        end: '15:00'
+        push: true
+        report_mode: current
+      closing_summary:
+        name: Tổng hợp cuối giờ
+        start: '17:00'
+        end: '19:00'
+        analyze: true
+        ai_mode: daily
+        push: true
+        report_mode: daily
+      weekend_free:
+        name: Cuối tuần linh hoạt
+        start: 08:00
+        end: '23:00'
+        ai_mode: current
+        push: true
+        report_mode: incremental
+        once:
+          analyze: false
+          push: false
+    day_plans:
+      workday:
+        periods:
+        - morning_briefing
+        - noon_update
+        - closing_summary
+      weekend:
+        periods:
+        - weekend_free
+    week_map:
+      1: workday
+      2: workday
+      3: workday
+      4: workday
+      5: workday
+      6: weekend
+      7: weekend
+  night_owl:
+    name: Chế độ làm việc khuya
+    description: Điểm tin buổi chiều và tổng hợp cả ngày vào đêm khuya. Phù hợp người
+      làm việc ban đêm hoặc khác múi giờ.
+    default:
+      collect: true
+      analyze: false
+      ai_mode: current
+      push: false
+      report_mode: current
+      once:
+        analyze: true
+        push: true
+    periods:
+      afternoon_peek:
+        name: Điểm tin buổi chiều
+        start: '15:00'
+        end: '17:00'
+        analyze: true
+        ai_mode: current
+        push: true
+        report_mode: current
+      late_night:
+        name: Tổng hợp đêm khuya
+        start: '22:00'
+        end: 01:00
+        analyze: true
+        ai_mode: daily
+        push: true
+        report_mode: daily
+    day_plans:
+      all_day:
+        periods:
+        - afternoon_peek
+        - late_night
+    week_map:
+      1: all_day
+      2: all_day
+      3: all_day
+      4: all_day
+      5: all_day
+      6: all_day
+      7: all_day
+custom:
+  name: Tùy chỉnh
+  description: Tự đặt khung giờ, lịch ngày và lịch tuần.
+  default:
+    collect: true
+    analyze: false
+    ai_mode: current
+    push: false
+    report_mode: current
+    once:
+      analyze: true
+      push: true
+  periods:
+    deep_quiet:
+      name: Yên lặng đêm khuya
+      start: '23:00'
+      end: 06:00
+      collect: true
+      analyze: true
+      push: false
+    weekday_morning:
+      name: Buổi sáng ngày thường
+      start: 08:00
+      end: '10:00'
+      push: true
+      report_mode: incremental
+    weekend_morning:
+      name: Buổi sáng cuối tuần
+      start: '10:00'
+      end: '12:00'
+      push: true
+      report_mode: daily
+    evening_summary:
+      name: Tổng hợp buổi tối
+      start: '19:00'
+      end: '21:00'
+      analyze: true
+      ai_mode: daily
+      push: true
+      report_mode: daily
+  day_plans:
+    workday:
+      periods:
+      - deep_quiet
+      - weekday_morning
+      - evening_summary
+    weekend:
+      periods:
+      - deep_quiet
+      - weekend_morning
+      - evening_summary
+  week_map:
+    1: workday
+    2: workday
+    3: workday
+    4: workday
+    5: workday
+    6: weekend
+    7: weekend
+  overlap:
+    policy: error_on_overlap

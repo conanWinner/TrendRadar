@@ -282,7 +282,7 @@ def _load_ai_analysis_config(config_data: Dict) -> Dict:
 
     return {
         "ENABLED": enabled_env if enabled_env is not None else ai_config.get("enabled", False),
-        "LANGUAGE": ai_config.get("language", "Chinese"),
+        "LANGUAGE": ai_config.get("language", "Vietnamese"),
         "PROMPT_FILE": ai_config.get("prompt_file", "ai_analysis_prompt.txt"),
         "MODE": ai_config.get("mode", "follow_report"),
         "MAX_NEWS_FOR_ANALYSIS": ai_config.get("max_news_for_analysis", 50),
@@ -302,7 +302,7 @@ def _load_ai_translation_config(config_data: Dict) -> Dict:
 
     return {
         "ENABLED": enabled_env if enabled_env is not None else trans_config.get("enabled", False),
-        "LANGUAGE": _get_env_str("AI_TRANSLATION_LANGUAGE") or trans_config.get("language", "English"),
+        "LANGUAGE": _get_env_str("AI_TRANSLATION_LANGUAGE") or trans_config.get("language", "Vietnamese"),
         "PROMPT_FILE": trans_config.get("prompt_file", "ai_translation_prompt.txt"),
         "SCOPE": {
             "HOTLIST": scope.get("hotlist", True),
